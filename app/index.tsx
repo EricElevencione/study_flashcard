@@ -1,15 +1,15 @@
-import { Text, View } from "react-native";
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { Button, Text, View } from 'react-native';
 
-export default function Index() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
-  );
+
+export default function HomeScreen() {
+    const router = useRouter();
+
+    return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Home Screen</Text>
+            <Button title="Enter" onPress={() => router.push('/dashboardScreen')} />
+        </View>
+    );
 }

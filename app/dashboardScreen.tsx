@@ -11,8 +11,8 @@ export default function DashboardScreen() {
     <View>
       <Text>Dashboard</Text>
       <Button title={"Logout"} />
-      <Button title="Add Question/Answer" onPress={() => router.push('/add_Questions')} />
-      <Button title={"Do Flipcard"} />
+      <Button title="Add Question/Answer" onPress={() => router.push('/addQuestions')} />
+      <Button title="Do Flipcard" onPress={() => router.push('/flipCard')} />
     </View>
   );
 }

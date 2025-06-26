@@ -1,13 +1,20 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState } from 'react';
-import { Button, FlatList, Text, TextInput, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Button, Text, TextInput, View } from 'react-native';
 import styles from '../assets/css/addQuestionPage';
+import FlipCard from './flipCard';
 
 interface Card {
     id: string;
     question: string;
     answer: string;
 }
+
+interface FlipCardProps {
+    cards: Card[];
+}
+
+const FlipCardComponent: React.FC<FlipCardProps> = FlipCard;
 
 export default function add_Questions() {
     const [question, setQuestion] = useState(''); // Initialize with an empty string hook
@@ -44,13 +51,13 @@ export default function add_Questions() {
         }
     };
 
-    React.useEffect(() => { // Load cards when the component mounts
+    useEffect(() => { // Load cards when the component mounts
         loadCards(); // Call the loadCards function
     }, []); // Empty dependency array
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Add a Question</Text> // Display the title
+            <Text style={styles.title}>Add a Question</Text>
 
             <TextInput
                 style={styles.input}
@@ -66,19 +73,9 @@ export default function add_Questions() {
                 onChangeText={setAnswer} // Update the answer state
             />
 
-            <Button title="Add Card" onPress={handleAddCard} /> // Display the add card button
+            <Button title="Add Card" onPress={handleAddCard} />
 
-            <FlatList
-                data={cards} // Use the cards array
-                keyExtractor={(item) => item.id} // Use the id property as the key
-                style={styles.list}
-                renderItem={({ item }) => (
-                    <View style={styles.card}>
-                        <Text style={styles.cardText}>Q: {item.question}</Text>
-                        <Text style={styles.cardText}>A: {item.answer}</Text>
-                    </View>
-                )}
-            />
+            <FlipCardComponent cards={cards} />
         </View>
     );
 }
